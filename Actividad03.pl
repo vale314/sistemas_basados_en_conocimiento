@@ -1,0 +1,49 @@
+%menu
+entrada(paella).
+entrada(gazpacho).
+entrada(consome).
+carne(filete_de_cerdo).
+carne(pollo_asado).
+pescado(trucha).
+pescado(bacalao).
+postre(flan).
+postre(nueces_con_miel).
+postre(naranja).
+
+%valor calorico de una racion
+calorias(paella, 200).
+calorias(gazpacho, 150).
+calorias(consome, 300).
+calorias(filete_de_cerdo, 400).
+calorias(pollo_asado, 280).
+calorias(trucha, 160).
+calorias(bacalao, 300).
+calorias(flan, 200).
+calorias(nueces_con_miel, 500).
+calorias(naranja, 50).
+
+bebida(140,vino).
+bebida(300,cerveza).
+bebida(0,agua_mineral).
+
+%****************Reglas*******************
+%plato_principal(P) P es un plato principal si es carne
+plato_principal(P):- carne(P).
+plato_principal(P):- pescado(P).
+comida_completa(Entrada, Principal, Postre):- entrada(Entrada),plato_principal(Principal), postre(Postre).
+
+valorcalorico_comida(Entrada,Principal,Postre,Valor):- comida_completa(Entrada,Principal,Postre),calorias(Entrada,X), calorias(Principal,Y), calorias(Postre,Z), bebida(A,_), Valor is(X + Y + Z + A), Valor=500.
+
+comida_equilibrada(Entrada,Principal,A,Postre,Valor):- comida_completa(Entrada,Principal,Postre),calorias(Entrada,X), calorias(Principal,Y), calorias(Postre,Z), bebida(C,A), Valor is(X + Y + Z + C), Valor=<800.
+
+
+
+
+
+
+
+
+
+
+
+
